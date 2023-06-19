@@ -10,6 +10,61 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Styling for the cart popup */
+      #cartPopup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 400px;
+        padding: 20px;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        z-index: 9999;
+      }
+
+      #cartPopup h2 {
+        margin-top: 0;
+      }
+
+      #cartItems {
+        margin-bottom: 10px;
+      }
+
+      #cartItems div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 5px;
+      }
+
+      #cartItems span {
+        flex-grow: 1;
+        margin-right: 10px;
+      }
+
+      #cartItems button {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      #checkoutBtn {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    </style>
   </head>
 
   <body>
@@ -20,12 +75,14 @@
       <div>
         <ul id="navbar">
           <li><a href="index.html">Home</a></li>
-          <li><a href="shop.html">Shop</a></li>
+          <li><a class="active" href="shop.html">Shop</a></li>
           <li><a href="blog.html">Blog</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a class="active" href="contact.html">Contact</a></li>
+          <li><a href="contact.html">Contact</a></li>
           <li id="lg-bag">
-            <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a class="nav-link" href="#!" onclick="openCartPopup()">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </a>
           </li>
           <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
         </ul>
@@ -36,6 +93,15 @@
       </div>
     </section>
 
+    <!-- Cart Popup -->
+    <div id="cartPopup">
+      <h2>Your Cart</h2>
+      <div id="cartItems"></div>
+      <a href="payment.html"
+        ><button id="checkoutBtn" onclick="checkout()">Checkout</button></a
+      >
+      <button onclick="closeCartPopup()">Close</button>
+    </div>
     <section id="page-header" class="about-header">
       <h2>#let's_talk</h2>
       <p>LEAVE A MESSAGE. We love to hear from you!</p>
@@ -72,20 +138,14 @@
     </section>
 
     <section id="form-details">
-      <form action="">
+      <form>
         <span>LEAVE A MESSAGE</span>
         <h2>We love to hear from you</h2>
-        <input type="text" placeholder="Your Name" />
-        <input type="text" placeholder="E-mail" />
-        <input type="text" placeholder="Subject" />
-        <textarea
-          name=""
-          id=""
-          cols="30"
-          rows="10"
-          placeholder="Your Message"
-        ></textarea>
-        <button class="normal">Submit</button>
+        <input type="text" id="name" placeholder="Your Name" />
+        <input type="email" id="email" placeholder="E-mail" />
+        <input type="text" id="subject" placeholder="Subject" />
+        <textarea id="message" cols="30" rows="10" placeholder="Your Message"></textarea>
+        <button onclick="sendEmail()" class="normal">Submit</button>
       </form>
 
       <div class="people">
@@ -169,6 +229,19 @@
       </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js">
+      function sendEmail() {
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var subject = document.getElementById('subject').value;
+    var message = document.getElementById('message').value;
+
+    var mailtoLink = 'mailto:sabisingh230@gmail.com' +
+      '?subject=' + encodeURIComponent(subject) +
+      '&body=' + encodeURIComponent('Name: ' + name + '\n\nEmail: ' + email + '\n\nMessage: ' + message);
+
+    window.location.href = mailtoLink;
+  }
+    </script>
   </body>
 </html>

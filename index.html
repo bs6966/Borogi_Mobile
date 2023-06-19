@@ -10,6 +10,61 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Styling for the cart popup */
+      #cartPopup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 400px;
+        padding: 20px;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        z-index: 9999;
+      }
+
+      #cartPopup h2 {
+        margin-top: 0;
+      }
+
+      #cartItems {
+        margin-bottom: 10px;
+      }
+
+      #cartItems div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 5px;
+      }
+
+      #cartItems span {
+        flex-grow: 1;
+        margin-right: 10px;
+      }
+
+      #cartItems button {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      #checkoutBtn {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    </style>
   </head>
 
   <body>
@@ -19,13 +74,15 @@
       /></a>
       <div>
         <ul id="navbar">
-          <li><a class="active" href="index.html">Home</a></li>
-          <li><a href="shop.html">Shop</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a class="active" href="shop.html">Shop</a></li>
           <li><a href="blog.html">Blog</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li id="lg-bag">
-            <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a class="nav-link" href="#!" onclick="openCartPopup()">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </a>
           </li>
           <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
         </ul>
@@ -36,12 +93,21 @@
       </div>
     </section>
 
+    <!-- Cart Popup -->
+    <div id="cartPopup">
+      <h2>Your Cart</h2>
+      <div id="cartItems"></div>
+      <a href="payment.html"
+        ><button id="checkoutBtn" onclick="checkout()">Checkout</button></a
+      >
+      <button onclick="closeCartPopup()">Close</button>
+    </div>
     <section id="hero">
       <h4>New Men Clothing</h4>
       <h2>Super value deals</h2>
       <h1>On all products</h1>
       <p>Save more with coupons & up to 70% off!</p>
-      <button>Shop Now</button>
+      <a href="shop.html"><button>Shop Now</button></a>
     </section>
 
     <section id="feature" class="section-p1">
@@ -92,11 +158,8 @@
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
             </div>
-            <h4>₹1000</h4>
           </div>
-          <div class="cart">
-            <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-          </div>
+          <div class="cart"></div>
         </div>
         <div class="pro">
           <img
@@ -114,11 +177,8 @@
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
             </div>
-            <h4>₹1000</h4>
           </div>
-          <div class="cart">
-            <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-          </div>
+          <div class="cart"></div>
         </div>
         <div class="pro">
           <img
@@ -136,11 +196,8 @@
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
             </div>
-            <h4>₹1000</h4>
           </div>
-          <div class="cart">
-            <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-          </div>
+          <div class="cart"></div>
         </div>
         <div class="pro">
           <img
@@ -158,11 +215,8 @@
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
             </div>
-            <h4>₹1000</h4>
           </div>
-          <div class="cart">
-            <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-          </div>
+          <div class="cart"></div>
         </div>
         <div class="pro">
           <img
@@ -180,11 +234,8 @@
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
             </div>
-            <h4>₹1000</h4>
           </div>
-          <div class="cart">
-            <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-          </div>
+          <div class="cart"></div>
         </div>
         <div class="pro">
           <img
@@ -202,11 +253,8 @@
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
             </div>
-            <h4>₹1000</h4>
           </div>
-          <div class="cart">
-            <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-          </div>
+          <div class="cart"></div>
         </div>
         <div class="pro">
           <img
@@ -224,11 +272,8 @@
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
             </div>
-            <h4>₹1000</h4>
           </div>
-          <div class="cart">
-            <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-          </div>
+          <div class="cart"></div>
         </div>
         <div class="pro">
           <img
@@ -246,11 +291,8 @@
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
             </div>
-            <h4>₹1000</h4>
           </div>
-          <div class="cart">
-            <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-          </div>
+          <div class="cart"></div>
         </div>
       </div>
     </section>
@@ -281,11 +323,8 @@
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
             </div>
-            <h4>₹1000</h4>
           </div>
-          <div class="cart">
-            <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-          </div>
+          <div class="cart"></div>
         </div>
         <div class="pro">
           <img
@@ -303,11 +342,8 @@
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
             </div>
-            <h4>₹1000</h4>
           </div>
-          <div class="cart">
-            <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-          </div>
+          <div class="cart"></div>
         </div>
         <div class="pro">
           <img
@@ -325,11 +361,8 @@
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
             </div>
-            <h4>₹1000</h4>
           </div>
-          <div class="cart">
-            <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-          </div>
+          <div class="cart"></div>
         </div>
         <div class="pro">
           <img
@@ -347,11 +380,8 @@
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
             </div>
-            <h4>₹1000</h4>
           </div>
-          <div class="cart">
-            <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-          </div>
+          <div class="cart"></div>
         </div>
         <div class="pro">
           <img
@@ -369,11 +399,8 @@
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
             </div>
-            <h4>₹1000</h4>
           </div>
-          <div class="cart">
-            <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-          </div>
+          <div class="cart"></div>
         </div>
         <div class="pro">
           <img
@@ -391,11 +418,8 @@
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
             </div>
-            <h4>₹1000</h4>
           </div>
-          <div class="cart">
-            <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-          </div>
+          <div class="cart"></div>
         </div>
         <div class="pro">
           <img
@@ -413,11 +437,8 @@
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
             </div>
-            <h4>₹1000</h4>
           </div>
-          <div class="cart">
-            <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-          </div>
+          <div class="cart"></div>
         </div>
         <div class="pro">
           <img
@@ -435,7 +456,6 @@
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
             </div>
-            <h4>₹1000</h4>
           </div>
           <div class="cart">
             <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>

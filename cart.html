@@ -42,50 +42,18 @@
       <h2>#let's_talk</h2>
       <p>LEAVE A MESSAGE. We love to hear from you!</p>
     </section>
-
     <section id="cart" class="section-p1">
       <table width="100%">
         <thead>
           <tr>
-            <td>Remove</td>
-            <td>Image</td>
             <td>Product</td>
             <td>Price</td>
-            <td>Quantity</td>
-            <td>Subtotal</td>
+            <td>Remove</td>
+            <!-- New column for remove button -->
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>
-              <a href="#"><i class="far fa-times-circle"></i></a>
-            </td>
-            <td><img src="img/products/f1.jpg" alt="" /></td>
-            <td>Cartoon Astronaut T-Shirts</td>
-            <td>$118.19</td>
-            <td><input type="number" value="1" /></td>
-            <td>$118.19</td>
-          </tr>
-          <tr>
-            <td>
-              <a href="#"><i class="far fa-times-circle"></i></a>
-            </td>
-            <td><img src="img/products/f2.jpg" alt="" /></td>
-            <td>Cartoon Astronaut T-Shirts</td>
-            <td>$118.19</td>
-            <td><input type="number" value="1" /></td>
-            <td>$118.19</td>
-          </tr>
-          <tr>
-            <td>
-              <a href="#"><i class="far fa-times-circle"></i></a>
-            </td>
-            <td><img src="img/products/f3.jpg" alt="" /></td>
-            <td>Cartoon Astronaut T-Shirts</td>
-            <td>$118.19</td>
-            <td><input type="number" value="1" /></td>
-            <td>$118.19</td>
-          </tr>
+        <tbody id="cart-items-container">
+          <!-- Cart items will be dynamically added here -->
         </tbody>
       </table>
     </section>
@@ -100,10 +68,10 @@
       </div>
       <div id="subtotal">
         <h3>Cart Totals</h3>
-        <table>
+        <table id="cart-table">
           <tr>
             <td>Cart Subtotal</td>
-            <td>$ 335</td>
+            <td id="subtotal-value"></td>
           </tr>
           <tr>
             <td>Shipping</td>
@@ -111,10 +79,12 @@
           </tr>
           <tr>
             <td><strong>Total</strong></td>
-            <td><strong>$ 335</strong></td>
+            <td id="total-value"></td>
           </tr>
         </table>
-        <button class="normal">Proceed to checkout</button>
+        <a href="payment.html"
+          ><button class="normal">Proceed to checkout</button></a
+        >
       </div>
     </section>
 
@@ -174,6 +144,141 @@
       </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+      // Function to retrieve the query parameters from the URL
+      function getQueryParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return Object.fromEntries(urlParams.entries());
+      }
+
+      // Function to add an item to the cart
+      function addItemToCart(item) {
+        const cartItemsContainer = document.getElementById(
+          "cart-items-container"
+        );
+
+        // Create a new table row for the item
+        const row = document.createElement("tr");
+
+        // Create columns for product and price
+        const productColumn = document.createElement("td");
+        const priceColumn = document.createElement("td");
+
+        // Set the content of the columns
+        productColumn.textContent = item.product;
+        priceColumn.textContent = item.price;
+
+        // Append the columns to the row
+        row.appendChild(productColumn);
+        row.appendChild(priceColumn);
+
+        // Append the row to the cart items container
+        cartItemsContainer.appendChild(row);
+      }
+
+      // Get the query parameters from the URL
+      const queryParams = getQueryParams();
+
+      // Check if product and price parameters exist
+      if (queryParams.product && queryParams.price) {
+        const item = {
+          product: queryParams.product,
+          price: queryParams.price,
+        };
+
+        // Add the item to the cart
+        addItemToCart(item);
+      }
+
+      window.addEventListener("DOMContentLoaded", function () {
+        // Get the cart items container element
+        const cartItemsContainer = document.getElementById(
+          "cart-items-container"
+        );
+
+        // Retrieve the cart data from local storage
+        const cartData = JSON.parse(localStorage.getItem("cartData"));
+
+        if (cartData && cartData.length > 0) {
+          // If cart data exists and is not empty
+          // Iterate over the cart items and display them in the cart
+          cartData.forEach(function (item) {
+            // Create a new table row for the item
+            const row = document.createElement("tr");
+
+            // Create columns for product and price
+            const productColumn = document.createElement("td");
+            const priceColumn = document.createElement("td");
+
+            // Set the content of the columns
+            productColumn.textContent = item.product;
+            priceColumn.textContent = item.price;
+
+            // Append the columns to the row
+            row.appendChild(productColumn);
+            row.appendChild(priceColumn);
+
+            // Append the row to the cart items container
+            cartItemsContainer.appendChild(row);
+          });
+        }
+      });
+
+      window.addEventListener("DOMContentLoaded", function () {
+        // Get the container for dynamically added cart items
+        const cartItemContainer = document.getElementById(
+          "cart-item-container"
+        );
+
+        // Get the subtotal and total value elements
+        const subtotalValueElement = document.querySelector("#subtotal-value");
+        const totalValueElement = document.querySelector("#total-value");
+
+        // Calculate the subtotal and total based on the prices of the cart items
+        function calculateSubtotalAndTotal() {
+          let subtotal = 0;
+
+          // Iterate over the dynamically added cart items
+          const cartItems = cartItemContainer.querySelectorAll(".cart-item");
+          cartItems.forEach(function (item) {
+            // Get the price value from the cart item
+            const priceText = item.querySelector(".price").textContent.trim();
+            const price = parseFloat(priceText.replace("$", ""));
+
+            // Add the price to the subtotal
+            if (!isNaN(price)) {
+              subtotal += price;
+            }
+          });
+
+          // Update the subtotal and total values
+          subtotalValueElement.textContent = "$" + subtotal.toFixed(2);
+          totalValueElement.textContent = "$" + subtotal.toFixed(2);
+        }
+
+        // Calculate subtotal and total when the page loads
+        calculateSubtotalAndTotal();
+      });
+
+      function removeProduct(button) {
+        var row = button.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+      }
+
+      // Add the remove button to each row in the table
+      var container = document.getElementById("cart-items-container");
+      var rows = container.getElementsByTagName("tr");
+
+      for (var i = 0; i < rows.length; i++) {
+        var removeButton = document.createElement("button");
+        removeButton.innerHTML = "✕";
+        removeButton.onclick = function () {
+          removeProduct(this);
+        };
+
+        var removeCell = rows[i].insertCell(-1);
+        removeCell.appendChild(removeButton);
+      }
+    </script>
   </body>
 </html>
