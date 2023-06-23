@@ -147,7 +147,7 @@
         <h6>Home / T-Shirt</h6>
         <h4>Men's Fashion T Shirt</h4>
         <h2>$139.00</h2>
-        <select>
+        <select id="size">
           <option>Select Size</option>
           <option>XL</option>
           <option>XXL</option>
@@ -157,7 +157,7 @@
         <input type="number" value="1" />
         <button
           class="normal"
-          onclick="addToCart('Mens Fashion T Shirt', 1000)"
+          onclick="addToCart('Mens Fashion T Shirt', 1000); showAlert()"
         >
           Add To Cart
         </button>
@@ -412,6 +412,11 @@
         // Implement your checkout logic here
         // This function will be called when the "Checkout" button is clicked
         // You can redirect the user to a checkout page or process the checkout as per your requirements
+      }
+
+      function showAlert() {
+        var myText = "Added to Cart";
+        alert(myText);
       }
     </script>
 
