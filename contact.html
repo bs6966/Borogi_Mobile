@@ -138,14 +138,14 @@
     </section>
 
     <section id="form-details">
-      <form>
+      <form onsubmit="sendEmail()">
         <span>LEAVE A MESSAGE</span>
         <h2>We love to hear from you</h2>
         <input type="text" id="name" placeholder="Your Name" />
         <input type="email" id="email" placeholder="E-mail" />
         <input type="text" id="subject" placeholder="Subject" />
         <textarea id="message" cols="30" rows="10" placeholder="Your Message"></textarea>
-        <button onclick="sendEmail()" class="normal">Submit</button>
+        <button  class="normal">Submit</button>
       </form>
 
       <div class="people">
@@ -229,19 +229,23 @@
       </div>
     </footer>
 
-    <script src="script.js">
-      function sendEmail() {
-    var name = document.getElementById('name').value;
+
+    <script>  
+     function sendEmail() {
+      var name = document.getElementById('name').value;
     var email = document.getElementById('email').value;
-    var subject = document.getElementById('subject').value;
-    var message = document.getElementById('message').value;
-
-    var mailtoLink = 'mailto:sabisingh230@gmail.com' +
-      '?subject=' + encodeURIComponent(subject) +
-      '&body=' + encodeURIComponent('Name: ' + name + '\n\nEmail: ' + email + '\n\nMessage: ' + message);
-
-    window.location.href = mailtoLink;
-  }
-    </script>
+   var subject = document.getElementById('subject').value;
+   var message = document.getElementById('message').value;
+ 
+   var mailtoLink =
+     'mailto:sabisingh230@gmail.com' +
+     '?subject=' +
+     encodeURIComponent(subject) +
+     '&body=' +
+     encodeURIComponent('Name: ' + name + '\n\nEmail: ' + email + '\n\nMessage: ' + message);
+ 
+   window.open(mailtoLink, '_blank');
+ }</script>
+    <script src="script.js"> </script>
   </body>
 </html>

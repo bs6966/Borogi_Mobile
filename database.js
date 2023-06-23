@@ -21,19 +21,23 @@ function submitForm(event) {
     var email = getElementVal('email')
     var contact = getElementVal('contact')
     var address = getElementVal('address')
+    var size = getElementVal('size')
+    var productName = getElementVal('productName')
     
-    saveMessages(name,email,contact,address)
+    saveMessages(name,email,contact,address,size,productName)
 
 }
 
-const saveMessages = (name,email,contact,address) => {
+const saveMessages = (name,email,contact,address,size,productName) => {
     var newPyamentForm = paymentFormDB.push()
 
     newPyamentForm.set({
         name: name,
         email: email,
         contact: contact,
-        address: address
+        address: address,
+        size: size,
+        productName:productName
     })
 }
 
